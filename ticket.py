@@ -13,7 +13,7 @@ class Ticket:
         if not os.path.exists(carpeta):
             os.makedirs(carpeta)
 
-        nombre_archivo = f"{carpeta}/ticket_{self.numero_ticket}.txt"
+        nombre_archivo = os.path.join(os.getcwd(), carpeta, f"ticket_{self.numero_ticket}.txt")
 
         with open(nombre_archivo, "w", encoding="utf-8") as f:
             print("=" * 50, file=f)
@@ -27,8 +27,11 @@ class Ticket:
             print(f"Fecha y hora: {self.fecha}", file=f)
             print("-" * 50, file=f)
             print(f"{'Producto':20} {'Cant.':>5} {'P.Unit.':>10} {'Subtotal':>10}", file=f)
+
             for item in self.detalle:
-                print(f"{item['nombre']:20} {item['cantidad']:>5} ${item['precio_unitario']:>9.2f} ${item['subtotal']:>9.2f}", file=f)
+                print(f"{item['nombre']:20} {item['cantidad']:>5} "
+                      f"${item['precio_unitario']:>9.2f} ${item['subtotal']:>9.2f}", file=f)
+
             print("-" * 50, file=f)
             print(f"{'TOTAL:':>40} ${self.total:>9.2f}", file=f)
             print("=" * 50, file=f)
@@ -49,8 +52,11 @@ class Ticket:
         ruta_txt = self.generar_ticket_txt(venta, empresa, cliente)
         print(f"Generando ticket TXT: {ruta_txt}")
 
-        try:
-            os.startfile(ruta_txt, "print") 
-            print("Ticket enviado a la impresora por defecto (etiquetera conectada).")
-        except Exception as e:
-            print(f"Error al imprimir: {e}. Asegúrate de que la etiquetera esté configurada como default.")
+        if os.path.exists(ruta_txt):
+            try:
+                os.startfile(ruta_txt, "print")
+                print("Ticket enviado a la impresora por defecto (etiquetera conectada).")
+            except Exception as e:
+                print(f"Error al imprimir: {e}.")
+        else:
+            print(f"Error: El archivo {ruta_txt} no existe. No se puede imprimir.")

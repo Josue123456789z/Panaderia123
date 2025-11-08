@@ -95,11 +95,7 @@ class VentasRepository:
             print(f"Cliente {nombre} agregado exitosamente.")
             input("Enter para continuar...")
 
-        responsable = input("Responsable de la venta: ").strip()
-        if not responsable:
-            print("Responsable requerido.")
-            input("Enter...")
-            return
+        responsable = "Sistema"
 
         lector = LectorCodigoBarra() 
         productos_vendidos = []
@@ -233,7 +229,6 @@ class VentasRepository:
         print("="*50)
         print(f"ID de la venta: {nuevo_id}")
         print(f"Cliente: {cliente.nombre}")
-        print(f"Responsable: {responsable}")
         print(f"Fecha y hora: {fecha_actual}")
         print("-" * 50)
         print(f"{'Producto':20} {'Cant.':>5} {'P.Unit.':>10} {'Subtotal':>10}")
@@ -246,9 +241,8 @@ class VentasRepository:
         if input("\n¿Generar PDF? (s/n): ").lower() == "s":
             self.generar_factura_pdf(nueva_venta, cliente, empresa)
 
-        # Aquí pasamos venta y empresa a mostrar_ticket e imprimir_ticket
         ticket = Ticket(nuevo_id, fecha_actual, productos_vendidos, nueva_venta.total)
-        ticket.mostrar_ticket(nueva_venta, empresa)  # si quieres pasar cliente aquí, cambia también
+        ticket.mostrar_ticket(nueva_venta, empresa) 
 
         imprimir = input("\n¿Deseas imprimir el ticket? (s/n): ").lower()
         if imprimir == "s":
@@ -256,7 +250,6 @@ class VentasRepository:
                 ticket.imprimir_ticket(nueva_venta, empresa, cliente)
             except Exception as e:
                 print(f"No se pudo imprimir el ticket: {e}")
-
 
         input("\nEnter para continuar...")
 

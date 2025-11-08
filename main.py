@@ -1,11 +1,11 @@
+
+from categoria import Categoria
+from productoRepository import ProductoRepository
+from producto import Producto  # Corregido: Debe ser 'producto.py' con clase Producto
+from categoriaRepository import CategoriaRepository
+from barcode import EAN13
+from barcode.writer import ImageWriter
 import os
-from productoRepository import menu as menu_productos
-from categoriaRepository import menu_categorias
-from inventario import menu_inventario
-from clienteRepository import menu as menu_clientes
-from ventasRepository import menu_ventas
-from comprasRepository import menu_compras
-from proveedoresRepository import menu_proveedores
 
 def limpiar_pantalla():
     if os.name == "nt": 
@@ -13,43 +13,64 @@ def limpiar_pantalla():
     else: 
         os.system("clear")
 
-def main():
-    while True:
-        limpiar_pantalla()
-        print("="*33)
-        print("| SISTEMA DE PANADERÍA |".center(33))
-        print("="*33)
-        print("1. Menú de Productos")
-        print("2. Menú de Categorías")
-        print("3. Menú de Inventario")
-        print("4. Menú de Clientes")
-        print("5. Menú de Ventas")
-        print("6. Menú de Compras")
-        print("7. Menú de Proveedores")
-        print("8. Salir")
-        print("="*33)
-        opcion = input("Elige una opción (1-8): ").strip()
 
-        if opcion == "1":
-            menu_productos()
-        elif opcion == "2":
-            menu_categorias()
-        elif opcion == "3":
-            menu_inventario()
-        elif opcion == "4":
-            menu_clientes()
-        elif opcion == "5":
-            menu_ventas()
-        elif opcion == "6":
-            menu_compras()
-        elif opcion == "7":
-            menu_proveedores()
-        elif opcion == "8":
-            confirm = input("¿Seguro que deseas salir? (s/n): ").lower()
-            if confirm == "s":
-                limpiar_pantalla()
-                print("Gracias por usar el sistema. ¡Hasta pronto!")
-                break
+class GenerarCodigoBarra:
+    def generar(self, producto_id, categoria_id):
+        codigo_cat = str(categoria_id).zfill(2)
+        codigo_pro = str(producto_id).zfill(10)
+        codigo_base = codigo_cat + codigo_pro
+        suma = 0
+        for i in range(len(codigo_base)):
+            digito = int(codigo_base[i])
+            if i % 2 == 0:
+                suma = suma + (digito * 3)
+            else:
+                suma = suma + digito
+        digito_verificador = (10 - (suma % 10)) % 10
+        result = codigo_base + str(digito_verificador)
+        return result
 
-print(main())
+class App:
+    def __init__(self):
+        self.repo_categoria = CategoriaRepository()
+        self.repo_producto = ProductoRepository()
+        self.generador = GenerarCodigoBarra()
+        self.agregar_producto()
+
+    def agregar_producto(self):
+        print("Listado de Categorias")
+        for item in self.repo_categoria.select_all():
+            print(item)
+
+        nombre = input("Nombre del producto: ").strip()
+        precio = float(input("Escriba el precio: $ "))
+        categoria_id = int(input("Escriba el id de la categoria: "))
+        stock = int(input("Escriba el stock: "))
+        descripcion = input("Escriba la descripcion del producto: ")
+
+        categoria = self.repo_categoria.select_by_id(categoria_id)
+        if categoria is None:
+            print("La categoria no existe!")
+            return
+
+        id = self.repo_producto.get_id() + 1 
+        codigo_barra = self.generador.generar(id, categoria_id)
+
+        producto = Producto(id, nombre, precio, codigo_barra, stock, categoria_id, descripcion)
+        self.repo_producto.add(producto)
+        print("Producto Agregado con exito!")
+        print("Codigo de barra: " + codigo_barra)
+
+        # Generar la imagen del código de barras
+        codigo_objeto = EAN13(codigo_barra, writer=ImageWriter())
+        carpeta = "codebars"
+        if not os.path.exists(carpeta):
+            os.makedirs(carpeta)
+        nombre_archivo = f"{carpeta}/{codigo_barra}"
+        ruta_guardado = codigo_objeto.save(nombre_archivo)
+        print(f"Imagen guardada como: {ruta_guardado}.png")
+
+if __name__ == "__main__":
+    limpiar_pantalla()
+    app = App()
 

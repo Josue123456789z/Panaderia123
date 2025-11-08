@@ -1,6 +1,8 @@
 import json
 from producto import Producto
 from generarCodigoBarra import GenerarCodigoBarra
+from barcode import EAN13
+from barcode.writer import ImageWriter
 import os
 
 def limpiar_pantalla():
@@ -13,6 +15,7 @@ class ProductoRepository:
     def __init__(self, archivo="productos.json"):
         self.archivo = archivo
         self.productos = []
+        self.generador = GenerarCodigoBarra()
         self.read()
 
     def read(self):
@@ -50,46 +53,54 @@ class ProductoRepository:
         self.productos.append(producto)
         self.save()
 
-    def get_id(self):
-        return max([item.producto_id for item in self.productos], default=0)
+    def get_nuevo_id(self):
+        return max([item.producto_id for item in self.productos], default=0) + 1
 
     def agregar_producto(self):
-        while True:
-            limpiar_pantalla()
-            print("\n--- AGREGAR NUEVO PRODUCTO ---")
-            nuevo_id = self.get_id() + 1
-            nombre = input("Nombre del producto: ").strip()
-            precio = float(input("Precio: "))
-            stock = int(input("Stock disponible: "))
-            categoria_id = int(input("ID de categoría: "))
-            descripcion = input("Descripción: ").strip()
+        limpiar_pantalla()
+        print("=== AGREGAR PRODUCTO ===")
 
-            generador = GenerarCodigoBarra()
-            codigo_barra = generador.generar(nuevo_id, categoria_id)
+        nombre = input("Nombre del producto: ").strip()
+        precio = float(input("Escriba el precio: $ "))
+        categoria_id = int(input("Escriba el id de la categoría: "))
+        stock = int(input("Escriba el stock: "))
+        descripcion = input("Escriba la descripción del producto: ")
 
-            if input("¿Generar imagen del código de barras? (s/n): ").lower() == 's':
-                generador.generar_imagen(codigo_barra, f"producto_{nuevo_id}_{nombre.replace(' ', '_')}")
+        nuevo_id = self.get_nuevo_id()
+        codigo_barra = self.generador.generar(nuevo_id, categoria_id)
+            
+        producto = Producto(nuevo_id, nombre, precio, codigo_barra, stock, categoria_id, descripcion)
+        self.add(producto)
 
-            producto = Producto(nuevo_id, nombre, precio, codigo_barra, stock, categoria_id, descripcion)
-            self.add(producto)
-            print(f"\nProducto '{nombre}' agregado correctamente.")
-            print(f"Código de barras: {codigo_barra}")
+        print("\nProducto agregado con éxito!")
+        print(f"Nombre: {nombre}")
+        print(f"Precio: ${precio}")
+        print(f"Código de barras: {codigo_barra}")
 
-            opcion = input("\n¿Desea agregar otro producto? (s/n): ").lower()
-            if opcion != 's':
-                break
+        if not os.path.exists("codebars"):
+            os.makedirs("codebars")
+
+        codigo_objeto = EAN13(codigo_barra, writer=ImageWriter())
+        nombre_archivo = f"codebars/{codigo_barra}.png"
+        ruta_guardado = codigo_objeto.save(nombre_archivo)
+
+        print(f"Imagen del código de barras guardada en: {ruta_guardado}")
 
     def eliminar_producto(self):
         while True:
             limpiar_pantalla()
-            codigo_eliminar = input("Ingrese el código del producto a eliminar: ")
+            codigo_eliminar = input("Ingrese el código del producto a eliminar: ").strip()
+            encontrado = False
+
             for p in self.productos:
                 if p.codigo == codigo_eliminar:
                     self.productos.remove(p)
                     self.save()
+                    encontrado = True
                     print(f"Producto '{p.nombre}' eliminado correctamente.")
                     break
-            else:
+
+            if not encontrado:
                 print("No se encontró un producto con ese código.")
 
             opcion = input("\n¿Desea eliminar otro producto? (s/n): ").lower()
@@ -99,7 +110,7 @@ class ProductoRepository:
     def buscar_producto(self):
         while True:
             limpiar_pantalla()
-            codigo_buscar = input("Ingrese el código del producto a buscar: ")
+            codigo_buscar = input("Ingrese el código del producto a buscar: ").strip()
             producto = None
             for p in self.productos:
                 if p.codigo == codigo_buscar:
@@ -107,9 +118,10 @@ class ProductoRepository:
                     break
 
             if producto:
-                print(f"Producto encontrado: ID {producto.producto_id}")
+                print(f"\nProducto encontrado:")
+                print(f"ID: {producto.producto_id}")
                 print(f"Nombre: {producto.nombre}")
-                print(f"Precio: {producto.precio}")
+                print(f"Precio: ${producto.precio}")
                 print(f"Stock: {producto.stock}")
                 print(f"Categoría ID: {producto.categoria_id}")
                 print(f"Descripción: {producto.descripcion}")

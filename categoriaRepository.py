@@ -13,6 +13,21 @@ class CategoriaRepository:
         self.archivo = archivo
         self.categorias = []
         self.read()
+    
+    def select_all(self):
+        with open(self.archivo, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        categorias = []
+        for item in data:
+            categorias.append(Categoria(item["categoria_id"], item["nombre"]))
+        return categorias
+
+    def select_by_id(self, categoria_id):
+        categorias = self.select_all()
+        for cat in categorias:
+            if cat.categoria_id == categoria_id:
+                return cat
+        return None 
 
     def read(self):
         try:

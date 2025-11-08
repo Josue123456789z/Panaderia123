@@ -35,7 +35,6 @@ class CompraRepository:
                 Compra(
                     compra_id=c["compra_id"],
                     proveedor_id=c["proveedor_id"],
-                    responsable=c["responsable"],
                     productos=c["productos"],
                     fecha=c["fecha"]
                 ) for c in data
@@ -65,12 +64,6 @@ class CompraRepository:
                 return
         except ValueError:
             print("ID debe ser número.")
-            input("Enter...")
-            return
-
-        responsable = input("Responsable: ").strip()
-        if not responsable:
-            print("Responsable requerido.")
             input("Enter...")
             return
 
@@ -128,13 +121,12 @@ class CompraRepository:
 
         nuevo_id = self.get_id() + 1
         fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        nueva_compra = Compra(nuevo_id, proveedor_id, responsable, productos_comprados, fecha_actual)
+        nueva_compra = Compra(nuevo_id, proveedor_id, productos_comprados, fecha_actual)
         self.compras.append(nueva_compra)
         self.guardar_compras()
 
         print("\n----- Panadería San Deli -----")
         print(f"ID de la compra: {nuevo_id}")
-        print(f"Responsable: {responsable}")
         print(f"Fecha y hora: {fecha_actual}")
         print("Productos:")
         for p in nueva_compra.productos:
@@ -148,7 +140,6 @@ class CompraRepository:
             self.generar_factura_pdf(nueva_compra)
 
         input("\nEnter para continuar...")
-
 
     def generar_factura_pdf(self, compra):
         carpeta = "facturas_compras"
@@ -164,7 +155,6 @@ class CompraRepository:
         contenido.append(Spacer(1, 12))
         contenido.append(Paragraph(f"<b>ID Compra:</b> {compra.compra_id}", styles["Normal"]))
         contenido.append(Paragraph(f"<b>Proveedor ID:</b> {compra.proveedor_id}", styles["Normal"]))
-        contenido.append(Paragraph(f"<b>Responsable:</b> {compra.responsable}", styles["Normal"]))
         contenido.append(Paragraph(f"<b>Fecha:</b> {compra.fecha}", styles["Normal"]))
         contenido.append(Spacer(1, 12))
 
