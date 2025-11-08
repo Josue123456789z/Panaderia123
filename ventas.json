@@ -1,0 +1,178 @@
+[
+    {
+        "venta_id": 1,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 4,
+                "nombre": "Concha",
+                "cantidad": 2,
+                "precio_unitario": 4.0,
+                "subtotal": 8.0
+            }
+        ],
+        "fecha": "2025-11-07 11:14:46",
+        "total": 8.0
+    },
+    {
+        "venta_id": 2,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 4,
+                "nombre": "Concha",
+                "cantidad": 10,
+                "precio_unitario": 4.0,
+                "subtotal": 40.0
+            }
+        ],
+        "fecha": "2025-11-07 12:10:21",
+        "total": 40.0
+    },
+    {
+        "venta_id": 3,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 3,
+                "nombre": "Café Tradicional",
+                "cantidad": 2,
+                "precio_unitario": 1.0,
+                "subtotal": 2.0
+            }
+        ],
+        "fecha": "2025-11-07 12:11:44",
+        "total": 2.0
+    },
+    {
+        "venta_id": 4,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 2,
+                "nombre": "Pastel de Chocolate",
+                "cantidad": 2,
+                "precio_unitario": 5.5,
+                "subtotal": 11.0
+            }
+        ],
+        "fecha": "2025-11-07 12:19:24",
+        "total": 11.0
+    },
+    {
+        "venta_id": 5,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 1,
+                "nombre": "Pan Francés",
+                "cantidad": 6,
+                "precio_unitario": 0.25,
+                "subtotal": 1.5
+            }
+        ],
+        "fecha": "2025-11-07 12:23:04",
+        "total": 1.5
+    },
+    {
+        "venta_id": 6,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 5,
+                "nombre": "Cacho",
+                "cantidad": 8,
+                "precio_unitario": 0.3,
+                "subtotal": 2.4
+            }
+        ],
+        "fecha": "2025-11-07 12:36:45",
+        "total": 2.4
+    },
+    {
+        "venta_id": 7,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 1,
+                "nombre": "Pan Francés",
+                "cantidad": 2,
+                "precio_unitario": 0.25,
+                "subtotal": 0.5
+            }
+        ],
+        "fecha": "2025-11-07 12:39:35",
+        "total": 0.5
+    },
+    {
+        "venta_id": 8,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 1,
+                "nombre": "Pan Francés",
+                "cantidad": 2,
+                "precio_unitario": 0.25,
+                "subtotal": 0.5
+            }
+        ],
+        "fecha": "2025-11-07 12:42:08",
+        "total": 0.5
+    },
+    {
+        "venta_id": 9,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 1,
+                "nombre": "Pan Francés",
+                "cantidad": 2,
+                "precio_unitario": 0.25,
+                "subtotal": 0.5
+            }
+        ],
+        "fecha": "2025-11-07 12:45:51",
+        "total": 0.5
+    },
+    {
+        "venta_id": 10,
+        "cliente_id": 4,
+        "responsable": "pepe",
+        "productos": [
+            {
+                "producto_id": 1,
+                "nombre": "Pan Francés",
+                "cantidad": 1,
+                "precio_unitario": 0.25,
+                "subtotal": 0.25
+            }
+        ],
+        "fecha": "2025-11-07 15:08:52",
+        "total": 0.25
+    },
+    {
+        "venta_id": 11,
+        "cliente_id": 4,
+        "responsable": "dd",
+        "productos": [
+            {
+                "producto_id": 2,
+                "nombre": "Pastel de Chocolate",
+                "cantidad": 2,
+                "precio_unitario": 5.5,
+                "subtotal": 11.0
+            }
+        ],
+        "fecha": "2025-11-07 15:38:32",
+        "total": 11.0
+    }
+]

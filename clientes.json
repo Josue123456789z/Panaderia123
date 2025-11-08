@@ -1,0 +1,38 @@
+[
+    {
+        "cliente_id": 1,
+        "nombre": "josue",
+        "telefono": "65778899",
+        "correo": "josue@gmail.com"
+    },
+    {
+        "cliente_id": 1,
+        "nombre": "Juan Pérez",
+        "telefono": "7012-3456",
+        "correo": "juan@gmail.com"
+    },
+    {
+        "cliente_id": 2,
+        "nombre": "fabio",
+        "telefono": "0",
+        "correo": "0"
+    },
+    {
+        "cliente_id": 3,
+        "nombre": "facio",
+        "telefono": "0",
+        "correo": "0"
+    },
+    {
+        "cliente_id": 4,
+        "nombre": "favio",
+        "telefono": "0",
+        "correo": "0"
+    },
+    {
+        "cliente_id": 5,
+        "nombre": "ff",
+        "telefono": "0",
+        "correo": "0"
+    }
+]

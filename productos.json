@@ -1,0 +1,47 @@
+[
+    {
+        "producto_id": 1,
+        "nombre": "Pan Francés",
+        "precio": 0.25,
+        "codigo": "012000000001",
+        "stock": 13,
+        "categoria_id": 1,
+        "descripcion": "Pan crujiente tradicional"
+    },
+    {
+        "producto_id": 2,
+        "nombre": "Pastel de Chocolate",
+        "precio": 5.5,
+        "codigo": "012000000002",
+        "stock": 20,
+        "categoria_id": 2,
+        "descripcion": "Pastel con cobertura de chocolate y relleno cremoso"
+    },
+    {
+        "producto_id": 3,
+        "nombre": "Café Tradicional",
+        "precio": 1.0,
+        "codigo": "012000000003",
+        "stock": 15,
+        "categoria_id": 3,
+        "descripcion": "Café negro servido caliente"
+    },
+    {
+        "producto_id": 4,
+        "nombre": "Concha",
+        "precio": 4.0,
+        "codigo": "012000000004",
+        "stock": 20,
+        "categoria_id": 1,
+        "descripcion": "panchito"
+    },
+    {
+        "producto_id": 5,
+        "nombre": "Cacho",
+        "precio": 0.3,
+        "codigo": "012000000005",
+        "stock": 10,
+        "categoria_id": 1,
+        "descripcion": "Panchito dulche"
+    }
+]

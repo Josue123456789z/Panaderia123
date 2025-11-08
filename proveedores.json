@@ -1,0 +1,9 @@
+[
+    {
+        "proveedor_id": 1,
+        "nombre": "Panadería El Trigal",
+        "contacto": "Juan Pérez",
+        "telefono": "7890-1234",
+        "email": "juanperez@gmail.com"
+    }
+]

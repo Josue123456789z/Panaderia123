@@ -1,0 +1,22 @@
+[
+    {
+        "categoria_id": 1,
+        "nombre": "Pan"
+    },
+    {
+        "categoria_id": 2,
+        "nombre": "Postres"
+    },
+    {
+        "categoria_id": 3,
+        "nombre": "Bebidas"
+    },
+    {
+        "categoria_id": 4,
+        "nombre": "Pan artesanal"
+    },
+    {
+        "categoria_id": 5,
+        "nombre": "Pancito Mapita"
+    }
+]

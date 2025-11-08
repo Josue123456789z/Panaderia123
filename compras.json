@@ -1,0 +1,18 @@
+[
+    {
+        "compra_id": 1,
+        "proveedor_id": 1,
+        "responsable": "pepe",
+        "fecha": "2025-11-07 11:13:38",
+        "productos": [
+            {
+                "producto_id": 4,
+                "nombre": "Concha",
+                "cantidad": 2,
+                "precio_unitario": 4.0,
+                "subtotal": 8.0
+            }
+        ],
+        "total": 8.0
+    }
+]
